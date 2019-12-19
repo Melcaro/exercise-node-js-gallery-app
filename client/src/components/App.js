@@ -10,8 +10,11 @@ class App extends React.Component {
     directoryContent: null,
   };
 
-  sendQuery = async () => {
-    const { data } = await getContentOfDirectory();
+  componentDidMount() {
+    this.sendQuery('images');
+  }
+  sendQuery = async path => {
+    const { data } = await getContentOfDirectory(path);
     this.setState({ directoryContent: data });
   };
   render() {
@@ -20,7 +23,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Gallery App with Node</h1>
-        <button onClick={this.sendQuery}>Get directory's content</button>
+
         {directoryContent && <Gallery directoryContent={directoryContent} />}
       </div>
     );
